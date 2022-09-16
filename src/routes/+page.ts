@@ -1,7 +1,11 @@
 import type { Page, LoadEvent } from "@sveltejs/kit";
 import { queryAllPokemon } from "$lib/graphQL";
 
-export const load = async (event: LoadEvent) => {
+type OutputProps = Pick<Page, 'data'>
+
+import { env } from "$env/dynamic/private";
+
+export const load = async (event: LoadEvent): Promise<OutputProps> => {
 	const { firstGenPokemon } = await queryAllPokemon();
 	const { params, routeId } = event;
 
